@@ -1,14 +1,14 @@
-
-// ============================================================
-// PANAMED
-// Sistema de orientación básica ante emergencias
-// ============================================================
-
 "use strict";
 
 
 // ============================================================
-// ELEMENTOS DEL DOM
+// PANAMED
+// Aplicación de orientación básica ante emergencias
+// ============================================================
+
+
+// ============================================================
+// ELEMENTOS
 // ============================================================
 
 const guia = document.getElementById("guia");
@@ -18,12 +18,13 @@ const volver = document.getElementById("volver");
 
 
 // ============================================================
-// GUÍAS DE EMERGENCIA
+// GUÍAS
 // ============================================================
 
 const guias = {
 
     "no-responde": {
+
         titulo: "Persona que no responde",
 
         pasos: [
@@ -33,10 +34,12 @@ const guias = {
             "No dejes sola a la persona.",
             "Sigue las instrucciones del operador de emergencias."
         ]
+
     },
 
 
     "respiracion": {
+
         titulo: "Problemas para respirar",
 
         pasos: [
@@ -46,10 +49,12 @@ const guias = {
             "No la dejes sola.",
             "Sigue las instrucciones del operador de emergencias."
         ]
+
     },
 
 
     "sangrado": {
+
         titulo: "Sangrado",
 
         pasos: [
@@ -59,10 +64,12 @@ const guias = {
             "Si el sangrado es abundante, llama al 911.",
             "Sigue las instrucciones del operador de emergencias."
         ]
+
     },
 
 
     "golpe": {
+
         titulo: "Golpe o caída",
 
         pasos: [
@@ -72,13 +79,14 @@ const guias = {
             "Llama al 911 si la persona está gravemente afectada.",
             "Informa al operador de emergencias sobre lo ocurrido."
         ]
+
     }
 
 };
 
 
 // ============================================================
-// VARIABLES DE LA GUÍA
+// VARIABLES
 // ============================================================
 
 let guiaActual = null;
@@ -93,10 +101,6 @@ const botonesSituacion =
     document.querySelectorAll(".boton-situacion");
 
 
-// ============================================================
-// EVENTOS DE LOS BOTONES
-// ============================================================
-
 botonesSituacion.forEach(function (boton) {
 
     boton.addEventListener("click", function () {
@@ -104,33 +108,24 @@ botonesSituacion.forEach(function (boton) {
         const tipo =
             boton.getAttribute("data-tipo");
 
-        console.log(
-            "Situación seleccionada:",
-            tipo
-        );
-
-
-        // Verificar que exista la guía
 
         if (!guias[tipo]) {
 
             console.error(
-                "No existe una guía para:",
+                "No existe la guía:",
                 tipo
             );
 
             return;
+
         }
 
 
-        // Guardar guía actual
-
-        guiaActual = guias[tipo];
+        guiaActual =
+            guias[tipo];
 
         pasoActual = 0;
 
-
-        // Mostrar guía
 
         mostrarGuia();
 
@@ -145,64 +140,35 @@ botonesSituacion.forEach(function (boton) {
 
 function mostrarGuia() {
 
-    if (!guia) {
+    if (!guia || !tituloGuia || !contenidoGuia) {
 
         console.error(
-            "No se encontró el elemento #guia"
+            "No se encontraron los elementos de la guía."
         );
 
         return;
+
     }
 
-
-    if (!tituloGuia) {
-
-        console.error(
-            "No se encontró #tituloGuia"
-        );
-
-        return;
-    }
-
-
-    if (!contenidoGuia) {
-
-        console.error(
-            "No se encontró #contenidoGuia"
-        );
-
-        return;
-    }
-
-
-    if (!guiaActual) {
-        return;
-    }
-
-
-    // Título
 
     tituloGuia.textContent =
         guiaActual.titulo;
 
 
-    // Mostrar sección
-
     guia.hidden = false;
 
-
-    // Mostrar primer paso
 
     mostrarPaso();
 
 
-    // Desplazarse hacia la guía
-
     setTimeout(function () {
 
         guia.scrollIntoView({
+
             behavior: "smooth",
+
             block: "start"
+
         });
 
     }, 100);
@@ -221,27 +187,8 @@ function mostrarPaso() {
     }
 
 
-    if (!contenidoGuia) {
-        return;
-    }
-
-
-    const totalPasos =
-        guiaActual.pasos.length;
-
-
-    const textoPaso =
-        guiaActual.pasos[pasoActual];
-
-
-    // ========================================================
-    // CONTENIDO DE LA GUÍA
-    // ========================================================
-
     contenidoGuia.innerHTML = "";
 
-
-    // Indicador
 
     const indicador =
         document.createElement("div");
@@ -253,13 +200,11 @@ function mostrarPaso() {
         "Paso " +
         (pasoActual + 1) +
         " de " +
-        totalPasos;
+        guiaActual.pasos.length;
 
 
     contenidoGuia.appendChild(indicador);
 
-
-    // Paso
 
     const paso =
         document.createElement("div");
@@ -268,21 +213,14 @@ function mostrarPaso() {
         "paso-guia";
 
     paso.textContent =
-        textoPaso;
+        guiaActual.pasos[pasoActual];
 
 
     contenidoGuia.appendChild(paso);
 
 
-    // ========================================================
-    // BOTÓN DE AUDIO
-    // ========================================================
-
     const escuchar =
         document.createElement("button");
-
-    escuchar.id =
-        "escucharPaso";
 
     escuchar.className =
         "escuchar-paso";
@@ -299,14 +237,12 @@ function mostrarPaso() {
 
     escuchar.addEventListener("click", function () {
 
-        reproducirTexto(textoPaso);
+        reproducirVoz(
+            guiaActual.pasos[pasoActual]
+        );
 
     });
 
-
-    // ========================================================
-    // CONTROLES
-    // ========================================================
 
     const controles =
         document.createElement("div");
@@ -315,15 +251,12 @@ function mostrarPaso() {
         "controles-guia";
 
 
-    // Botón anterior
+    // ANTERIOR
 
     if (pasoActual > 0) {
 
         const anterior =
             document.createElement("button");
-
-        anterior.id =
-            "pasoAnterior";
 
         anterior.type =
             "button";
@@ -349,15 +282,15 @@ function mostrarPaso() {
     }
 
 
-    // Botón siguiente
+    // SIGUIENTE
 
-    if (pasoActual < totalPasos - 1) {
+    if (
+        pasoActual <
+        guiaActual.pasos.length - 1
+    ) {
 
         const siguiente =
             document.createElement("button");
-
-        siguiente.id =
-            "pasoSiguiente";
 
         siguiente.type =
             "button";
@@ -383,15 +316,15 @@ function mostrarPaso() {
     }
 
 
-    // Botón terminar
+    // TERMINAR
 
-    if (pasoActual === totalPasos - 1) {
+    if (
+        pasoActual ===
+        guiaActual.pasos.length - 1
+    ) {
 
         const terminar =
             document.createElement("button");
-
-        terminar.id =
-            "terminarGuia";
 
         terminar.type =
             "button";
@@ -421,18 +354,19 @@ function mostrarPaso() {
 
 
 // ============================================================
-// REPRODUCIR AUDIO
+// VOZ
 // ============================================================
 
-function reproducirTexto(texto) {
+function reproducirVoz(texto) {
 
     if (!("speechSynthesis" in window)) {
 
         alert(
-            "Tu navegador no permite reproducir instrucciones por voz."
+            "La función de voz no está disponible en este dispositivo."
         );
 
         return;
+
     }
 
 
@@ -446,34 +380,14 @@ function reproducirTexto(texto) {
     voz.lang =
         "es-ES";
 
-
     voz.rate =
         0.95;
-
 
     voz.pitch =
         1;
 
 
     window.speechSynthesis.speak(voz);
-
-}
-
-
-// ============================================================
-// BOTÓN VOLVER
-// ============================================================
-
-if (volver) {
-
-    volver.addEventListener(
-        "click",
-        function () {
-
-            cerrarGuia();
-
-        }
-    );
 
 }
 
@@ -506,7 +420,21 @@ function cerrarGuia() {
 
 
 // ============================================================
-// ACERCA DE PANAMED
+// BOTÓN VOLVER
+// ============================================================
+
+if (volver) {
+
+    volver.addEventListener(
+        "click",
+        cerrarGuia
+    );
+
+}
+
+
+// ============================================================
+// ACERCA
 // ============================================================
 
 const btnAcerca =
@@ -521,10 +449,6 @@ const cerrarAcerca =
 const volverPanamed =
     document.getElementById("volverPanamed");
 
-
-// ============================================================
-// ABRIR ACERCA
-// ============================================================
 
 if (btnAcerca && acerca) {
 
@@ -541,10 +465,6 @@ if (btnAcerca && acerca) {
 }
 
 
-// ============================================================
-// CERRAR ACERCA
-// ============================================================
-
 if (cerrarAcerca && acerca) {
 
     cerrarAcerca.addEventListener(
@@ -559,10 +479,6 @@ if (cerrarAcerca && acerca) {
 
 }
 
-
-// ============================================================
-// VOLVER A PANAMED
-// ============================================================
 
 if (volverPanamed && acerca) {
 
@@ -580,7 +496,7 @@ if (volverPanamed && acerca) {
 
 
 // ============================================================
-// EMERGENCIA 911
+// EMERGENCIA
 // ============================================================
 
 const btnEmergencia =
@@ -608,17 +524,12 @@ const emergenciaRapida =
 
 
 // ============================================================
-// ABRIR CONFIRMACIÓN DE EMERGENCIA
+// ABRIR EMERGENCIA
 // ============================================================
 
-function abrirConfirmacionEmergencia() {
+function abrirEmergencia() {
 
     if (!confirmacionEmergencia) {
-
-        console.error(
-            "No se encontró #confirmacionEmergencia"
-        );
-
         return;
     }
 
@@ -636,10 +547,10 @@ function abrirConfirmacionEmergencia() {
 
 
 // ============================================================
-// CERRAR CONFIRMACIÓN
+// CERRAR EMERGENCIA
 // ============================================================
 
-function cerrarConfirmacionEmergencia() {
+function cerrarEmergencia() {
 
     if (!confirmacionEmergencia) {
         return;
@@ -659,18 +570,14 @@ function cerrarConfirmacionEmergencia() {
 
 
 // ============================================================
-// BOTÓN PRINCIPAL DE EMERGENCIA
+// BOTÓN PRINCIPAL
 // ============================================================
 
 if (btnEmergencia) {
 
     btnEmergencia.addEventListener(
         "click",
-        function () {
-
-            abrirConfirmacionEmergencia();
-
-        }
+        abrirEmergencia
     );
 
 }
@@ -684,36 +591,28 @@ if (emergenciaRapida) {
 
     emergenciaRapida.addEventListener(
         "click",
-        function () {
-
-            abrirConfirmacionEmergencia();
-
-        }
+        abrirEmergencia
     );
 
 }
 
 
 // ============================================================
-// CANCELAR EMERGENCIA
+// CANCELAR
 // ============================================================
 
 if (cancelarEmergencia) {
 
     cancelarEmergencia.addEventListener(
         "click",
-        function () {
-
-            cerrarConfirmacionEmergencia();
-
-        }
+        cerrarEmergencia
     );
 
 }
 
 
 // ============================================================
-// CONFIRMAR LLAMADA AL 911
+// LLAMAR 911
 // ============================================================
 
 if (confirmarEmergencia) {
@@ -744,19 +643,15 @@ document.addEventListener(
         }
 
 
-        // Cerrar emergencia
-
         if (
             confirmacionEmergencia &&
             confirmacionEmergencia.style.display === "flex"
         ) {
 
-            cerrarConfirmacionEmergencia();
+            cerrarEmergencia();
 
         }
 
-
-        // Cerrar acerca
 
         if (
             acerca &&
@@ -768,8 +663,6 @@ document.addEventListener(
 
         }
 
-
-        // Cerrar guía
 
         if (
             guia &&
@@ -785,14 +678,49 @@ document.addEventListener(
 
 
 // ============================================================
-// MENSAJE DE COMPROBACIÓN
+// SERVICE WORKER
+// ============================================================
+
+if ("serviceWorker" in navigator) {
+
+    window.addEventListener(
+        "load",
+        function () {
+
+            navigator.serviceWorker
+                .register("./sw.js")
+                .then(function (registro) {
+
+                    console.log(
+                        "PANAMED: modo offline activado.",
+                        registro.scope
+                    );
+
+                })
+                .catch(function (error) {
+
+                    console.error(
+                        "PANAMED: error al activar modo offline:",
+                        error
+                    );
+
+                });
+
+        }
+    );
+
+}
+
+
+// ============================================================
+// MENSAJE DE INICIO
 // ============================================================
 
 console.log(
-    "PANAMED: sistema iniciado correctamente."
+    "PANAMED iniciado correctamente."
 );
 
 console.log(
-    "Botones de situaciones encontrados:",
+    "Situaciones disponibles:",
     botonesSituacion.length
 );

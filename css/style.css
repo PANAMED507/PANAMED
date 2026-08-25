@@ -1,4 +1,3 @@
-
 * {
     box-sizing: border-box;
     margin: 0;
@@ -702,3 +701,90 @@ footer {
     }
 
 }
+/* ==========================
+   ADAPTACIÓN PARA TELÉFONOS
+========================== */
+
+@media (max-width: 600px) {
+
+    body {
+        width: 100%;
+        overflow-x: hidden;
+    }
+
+    .app {
+        width: 100%;
+        min-height: 100vh;
+    }
+
+    .encabezado {
+        padding: 22px 50px;
+    }
+
+    .encabezado h1 {
+        font-size: 32px;
+    }
+
+    .encabezado p {
+        font-size: 15px;
+    }
+
+    .inicio {
+        padding: 22px 16px 12px;
+    }
+
+    .inicio h2 {
+        font-size: 23px;
+    }
+
+    .inicio p {
+        font-size: 15px;
+    }
+
+    .boton-emergencia {
+        min-height: 58px;
+        font-size: 17px;
+    }
+
+    .situaciones {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        padding: 16px;
+    }
+
+    .boton-situacion {
+        min-height: 105px;
+        padding: 14px 8px;
+        font-size: 15px;
+    }
+
+    .guia {
+        margin: 8px 16px 20px;
+        padding: 17px;
+    }
+
+    .paso-guia {
+        padding: 16px;
+        font-size: 16px;
+    }
+
+    .controles-guia {
+        gap: 8px;
+    }
+
+    .controles-guia button,
+    #volver {
+        min-height: 50px;
+        font-size: 15px;
+    }
+
+    .escuchar-paso {
+        min-height: 50px;
+    }
+
+    .emergencia-rapida {
+        right: 14px;
+        bottom: 14px;
+    }
+
+} 

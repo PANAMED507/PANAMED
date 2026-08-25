@@ -1,0 +1,311 @@
+```html
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <meta name="theme-color"
+          content="#d71920">
+
+    <title>PANAMED</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="manifest" href="manifest.json">
+</head>
+
+<body>
+
+    <main class="app">
+
+        <!-- ============================== -->
+        <!-- ENCABEZADO -->
+        <!-- ============================== -->
+
+        <header class="encabezado">
+
+            <div class="titulo-panamed">
+                <h1>PANAMED</h1>
+                <p>Asistencia de emergencia</p>
+            </div>
+
+            <button id="btnAcerca"
+                    class="boton-acerca"
+                    aria-label="Información sobre PANAMED">
+                ⓘ
+            </button>
+
+        </header>
+
+
+        <!-- ============================== -->
+        <!-- INICIO -->
+        <!-- ============================== -->
+
+        <section class="inicio">
+
+            <h2>¿Qué está pasando?</h2>
+
+            <p>
+                Selecciona una situación para recibir
+                orientación básica.
+            </p>
+
+            <button id="btnEmergencia"
+                    class="boton-emergencia"
+                    type="button">
+
+                🚨 LLAMAR A EMERGENCIAS
+
+            </button>
+
+        </section>
+
+
+        <!-- ============================== -->
+        <!-- SITUACIONES -->
+        <!-- ============================== -->
+
+        <section class="situaciones">
+
+            <button class="boton-situacion"
+                    data-tipo="no-responde"
+                    type="button">
+
+                Persona que no responde
+
+            </button>
+
+            <button class="boton-situacion"
+                    data-tipo="respiracion"
+                    type="button">
+
+                Problemas para respirar
+
+            </button>
+
+            <button class="boton-situacion"
+                    data-tipo="sangrado"
+                    type="button">
+
+                Sangrado
+
+            </button>
+
+            <button class="boton-situacion"
+                    data-tipo="golpe"
+                    type="button">
+
+                Golpe o caída
+
+            </button>
+
+        </section>
+
+
+        <!-- ============================== -->
+        <!-- GUÍA -->
+        <!-- ============================== -->
+
+        <section id="guia"
+                 class="guia"
+                 hidden>
+
+            <h2 id="tituloGuia"></h2>
+
+            <div id="contenidoGuia"></div>
+
+            <button id="volver"
+                    type="button">
+
+                Volver
+
+            </button>
+
+        </section>
+
+
+        <!-- ============================== -->
+        <!-- INFORMACIÓN -->
+        <!-- ============================== -->
+
+        <footer>
+
+            <p>
+                PANAMED es una herramienta de orientación
+                y no sustituye a los servicios de emergencia
+                ni a profesionales de la salud.
+            </p>
+
+        </footer>
+
+
+        <!-- ============================== -->
+        <!-- ACERCA DE PANAMED -->
+        <!-- ============================== -->
+
+        <section id="acerca"
+                 class="acerca"
+                 style="display: none;">
+
+            <div class="acerca-contenido">
+
+                <button id="cerrarAcerca"
+                        class="cerrar-acerca"
+                        aria-label="Cerrar"
+                        type="button">
+
+                    ×
+
+                </button>
+
+                <div class="acerca-titulo">
+
+                    <h2>PANAMED</h2>
+
+                    <p>Información del proyecto</p>
+
+                </div>
+
+
+                <div class="datos-proyecto">
+
+                    <p>
+                        <strong>Estudiante:</strong><br>
+                        Ian Daniel Velado
+                    </p>
+
+                    <p>
+                        <strong>Grado:</strong><br>
+                        8B
+                    </p>
+
+                    <p>
+                        <strong>Colegio:</strong><br>
+                        Colegio Nuestra Señora de Lourdes
+                    </p>
+
+                </div>
+
+
+                <h3>¿Qué es PANAMED?</h3>
+
+                <p>
+                    PANAMED es una aplicación móvil de orientación
+                    básica ante situaciones de emergencia.
+                </p>
+
+                <p>
+                    Su propósito es proporcionar información clara
+                    y sencilla para ayudar al usuario a actuar de
+                    manera organizada mientras solicita ayuda profesional.
+                </p>
+
+
+                <h3>Objetivo</h3>
+
+                <p>
+                    Facilitar el acceso a orientación básica de primeros
+                    auxilios y ayudar a las personas a comunicarse
+                    rápidamente con los servicios de emergencia.
+                </p>
+
+
+                <div class="advertencia">
+
+                    <strong>Importante</strong>
+
+                    <p>
+                        PANAMED es una herramienta educativa de orientación.
+                        No sustituye a médicos, paramédicos ni servicios
+                        de emergencia.
+                    </p>
+
+                </div>
+
+
+                <button id="volverPanamed"
+                        class="volver-panamed"
+                        type="button">
+
+                    Volver a PANAMED
+
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- ============================== -->
+        <!-- CONFIRMACIÓN DE EMERGENCIA -->
+        <!-- ============================== -->
+
+        <section id="confirmacionEmergencia"
+                 class="confirmacion-emergencia"
+                 style="display: none;"
+                 aria-hidden="true">
+
+            <div class="confirmacion-contenido">
+
+                <div class="icono-emergencia">
+                    🚨
+                </div>
+
+                <h2>¿Necesitas ayuda de emergencia?</h2>
+
+                <p>
+                    Si existe una emergencia real,
+                    solicita ayuda profesional inmediatamente.
+                </p>
+
+                <button id="confirmarEmergencia"
+                        class="confirmar-emergencia"
+                        type="button">
+
+                    Llamar al 911
+
+                </button>
+
+                <button id="cancelarEmergencia"
+                        class="cancelar-emergencia"
+                        type="button">
+
+                    Cancelar
+
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- ============================== -->
+        <!-- BOTÓN DE EMERGENCIA RÁPIDA -->
+        <!-- ============================== -->
+
+        <button id="emergenciaRapida"
+                class="emergencia-rapida"
+                aria-label="Llamar a emergencias"
+                type="button">
+
+            🚨 911
+
+        </button>
+
+    </main>
+
+
+    <!-- ============================== -->
+    <!-- JAVASCRIPT -->
+    <!-- ============================== -->
+
+    <script src="js/app.js"></script>
+
+</body>
+
+</html>
+```
